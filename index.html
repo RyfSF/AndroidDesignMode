@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="UTF-8">
+    <title>Chapter3 by RyfSF</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="stylesheets/normalize.css" media="screen">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
+  </head>
+  <body>
+    <section class="page-header">
+      <h1 class="project-name">Chapter3</h1>
+      <h2 class="project-tagline">BuilderMode</h2>
+      <a href="https://github.com/RyfSF/AndroidDesignMode" class="btn">View on GitHub</a>
+      <a href="https://github.com/RyfSF/AndroidDesignMode/zipball/master" class="btn">Download .zip</a>
+      <a href="https://github.com/RyfSF/AndroidDesignMode/tarball/master" class="btn">Download .tar.gz</a>
+    </section>
+
+    <section class="main-content">
+      <div class="highlight highlight-source-java"><pre><span class="pl-k">package</span> <span class="pl-smi">builder</span>;
+<span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-en">Test</span>{
+    <span class="pl-k">public</span> <span class="pl-k">static</span> <span class="pl-k">void</span> <span class="pl-en">main</span>(<span class="pl-k">String</span>[] <span class="pl-v">args</span>){
+        builder builder <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-smi">MacBookBuilder</span>();
+        <span class="pl-smi">Director</span> pcDirector <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-smi">Director</span>(builder);
+        pcDirector<span class="pl-k">.</span>construct(<span class="pl-s"><span class="pl-pds">"</span>Intel<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>Samsung<span class="pl-pds">"</span></span>);
+        <span class="pl-smi">System</span><span class="pl-k">.</span>out<span class="pl-k">.</span>println(<span class="pl-s"><span class="pl-pds">"</span>ComputerInfo : <span class="pl-pds">"</span></span><span class="pl-k">+</span>builder<span class="pl-k">.</span>create()<span class="pl-k">.</span>toString());
+    }
+}
+<span class="pl-k">abstract</span> <span class="pl-k">class</span> <span class="pl-en">builder</span> {
+
+    <span class="pl-k">public</span> <span class="pl-k">abstract</span> <span class="pl-k">void</span> <span class="pl-en">buildBoard</span>(<span class="pl-smi">String</span> <span class="pl-v">board</span>);
+    <span class="pl-k">public</span> <span class="pl-k">abstract</span> <span class="pl-k">void</span> <span class="pl-en">buildDisplay</span>(<span class="pl-smi">String</span> <span class="pl-v">display</span>);
+    <span class="pl-k">public</span> <span class="pl-k">abstract</span> <span class="pl-k">void</span> <span class="pl-en">buildOS</span>();
+    <span class="pl-k">public</span> <span class="pl-k">abstract</span> <span class="pl-smi">Computer</span> <span class="pl-en">create</span>();
+
+}
+
+<span class="pl-k">abstract</span> <span class="pl-k">class</span> <span class="pl-en">Computer</span>{
+    <span class="pl-k">protected</span> <span class="pl-smi">String</span> mBoard;
+    <span class="pl-k">protected</span> <span class="pl-smi">String</span> mDisplay;
+    <span class="pl-k">protected</span> <span class="pl-smi">String</span> mOS;
+
+    <span class="pl-k">protected</span> <span class="pl-en">Computer</span>(){
+
+    }
+    <span class="pl-k">public</span> <span class="pl-k">void</span> <span class="pl-en">setBoard</span>(<span class="pl-smi">String</span> <span class="pl-v">board</span>){
+        mBoard <span class="pl-k">=</span> board;
+    }
+    <span class="pl-k">public</span> <span class="pl-k">void</span> <span class="pl-en">setDisplay</span>(<span class="pl-smi">String</span> <span class="pl-v">display</span>){
+        mDisplay <span class="pl-k">=</span> display;
+    }
+    <span class="pl-k">public</span> <span class="pl-k">abstract</span> <span class="pl-k">void</span> <span class="pl-en">setOS</span>();
+    <span class="pl-k">@Override</span>
+    <span class="pl-k">public</span> <span class="pl-smi">String</span> <span class="pl-en">toString</span>(){
+        <span class="pl-k">return</span> <span class="pl-s"><span class="pl-pds">"</span>Computer [mBoard=<span class="pl-pds">"</span></span><span class="pl-k">+</span><span class="pl-s"><span class="pl-pds">"</span>mBoard<span class="pl-pds">"</span></span><span class="pl-k">+</span><span class="pl-s"><span class="pl-pds">"</span>,mDisplay=<span class="pl-pds">"</span></span><span class="pl-k">+</span>mDisplay
+                <span class="pl-k">+</span><span class="pl-s"><span class="pl-pds">"</span>,mOS=<span class="pl-pds">"</span></span><span class="pl-k">+</span>mOS<span class="pl-k">+</span><span class="pl-s"><span class="pl-pds">"</span>]<span class="pl-pds">"</span></span>;
+    }
+}
+
+<span class="pl-k">class</span> <span class="pl-en">MacBook</span> <span class="pl-k">extends</span> <span class="pl-e">Computer</span>{
+    <span class="pl-k">protected</span> <span class="pl-en">MacBook</span>() {
+        <span class="pl-c">// TODO Auto-generated constructor stub</span>
+    }
+    <span class="pl-k">@Override</span>
+    <span class="pl-k">public</span> <span class="pl-k">void</span> <span class="pl-en">setOS</span>() {
+        <span class="pl-c">// TODO Auto-generated method stub</span>
+        mOS <span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">"</span>Windos10<span class="pl-pds">"</span></span>;
+
+    }
+
+}
+
+<span class="pl-k">class</span> <span class="pl-en">MacBookBuilder</span> <span class="pl-k">extends</span> builder{
+    <span class="pl-k">private</span> <span class="pl-smi">Computer</span> mComputer <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-smi">MacBook</span>();
+    <span class="pl-k">@Override</span>
+    <span class="pl-k">public</span> <span class="pl-k">void</span> <span class="pl-en">buildBoard</span>(<span class="pl-smi">String</span> <span class="pl-v">board</span>) {
+        <span class="pl-c">// TODO Auto-generated method stub</span>
+        mComputer<span class="pl-k">.</span>setBoard(board);
+    }
+
+    <span class="pl-k">@Override</span>
+    <span class="pl-k">public</span> <span class="pl-k">void</span> <span class="pl-en">buildDisplay</span>(<span class="pl-smi">String</span> <span class="pl-v">display</span>) {
+        <span class="pl-c">// TODO Auto-generated method stub</span>
+        mComputer<span class="pl-k">.</span>setDisplay(display);
+    }
+
+    <span class="pl-k">@Override</span>
+    <span class="pl-k">public</span> <span class="pl-k">void</span> <span class="pl-en">buildOS</span>() {
+        <span class="pl-c">// TODO Auto-generated method stub</span>
+        mComputer<span class="pl-k">.</span>setOS();
+    }
+
+    <span class="pl-k">@Override</span>
+    <span class="pl-k">public</span> <span class="pl-smi">Computer</span> <span class="pl-en">create</span>() {
+        <span class="pl-c">// TODO Auto-generated method stub</span>
+        <span class="pl-k">return</span> mComputer;
+
+    }
+}
+
+<span class="pl-k">class</span> <span class="pl-en">Director</span>{
+    builder mBuilder <span class="pl-k">=</span> <span class="pl-c1">null</span>;
+    <span class="pl-k">public</span> <span class="pl-en">Director</span>(<span class="pl-v">builder</span> <span class="pl-v">builder</span>){
+        mBuilder <span class="pl-k">=</span> builder;
+    }
+    <span class="pl-k">public</span> <span class="pl-k">void</span> <span class="pl-en">construct</span>(<span class="pl-smi">String</span> <span class="pl-v">board</span>,<span class="pl-smi">String</span> <span class="pl-v">display</span>){
+        mBuilder<span class="pl-k">.</span>buildBoard(board);
+        mBuilder<span class="pl-k">.</span>buildDisplay(display);
+        mBuilder<span class="pl-k">.</span>buildOS();
+    }
+}</pre></div>
+
+      <footer class="site-footer">
+        <span class="site-footer-owner"><a href="https://github.com/RyfSF/AndroidDesignMode">Chapter3</a> is maintained by <a href="https://github.com/RyfSF">RyfSF</a>.</span>
+
+        <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the <a href="https://github.com/jasonlong/cayman-theme">Cayman theme</a> by <a href="https://twitter.com/jasonlong">Jason Long</a>.</span>
+      </footer>
+
+    </section>
+
+  
+  </body>
+</html>
